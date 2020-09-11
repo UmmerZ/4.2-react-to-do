@@ -16,10 +16,26 @@ export default function ToDo() {
         {
             task: "Find out what React is"
         }
-    ].map((toDo,index) => <li key={index}>{toDo.task}</li>))
+    ])
+    //
+    const addNewTask = event => {
+        event.preventDefault();
+        // add to do list 
+        // we can use ... spread operrator to break up an array
+        //so that each item inside is treated (value sepated by commas)
+        //if we were to write it manually'
+        const newToDoList = [...toDos];
+        //renenber we never update the stte variable directly.
+    
+        newToDoList.push({ task: newTask });
+
+        //update the state
+        setToDos(newToDoList);
+        setNewTask('');
+    }
     return (
         <>
-            <form>
+            <form onSubmit={addNewTask}>
                 <label htmlFor="task">New Task:</label>
                 <input
                     type="text"
@@ -35,7 +51,7 @@ export default function ToDo() {
                 </p>
             </form>
             <ul>
-              {toDos}
+              {toDos.map((toDo,index) => <li key={index}>{toDo.task}</li>)}
             </ul>
         </>
     );
